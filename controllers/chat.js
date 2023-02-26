@@ -37,7 +37,6 @@ const createChat = async (req, res) => {
 
 const getChats = async (req, res) => {
     const {id} = req.params;
-    console.log(id)
     try {
         if (id) {
             const chatArr = await chatModel.findOne({_id: id})

@@ -28,7 +28,6 @@ const signIn = async (req, res) => {
     const user = await userModel.findOne({username, password})
     try {
         res.status(200).json({id: user._id, chatId: user.chatId, username: user.username})
-        console.log("signin reached")
     } catch (error) {
         console.log(error)
     }
