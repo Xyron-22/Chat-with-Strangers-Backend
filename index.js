@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const path = require("path");
 const app = express();
 const {createServer} = require("http");
 const { Server } = require("socket.io");
@@ -31,9 +32,6 @@ const io = new Server(httpServer, {
 });
 
 app.get("/", getUsers);
-app.get("/home", (req, res) => {
-    res.status(200).send(<p>This is Home</p>)
-});
 
 app.post("/signup", signUp);
 app.post("/signin", signIn);
@@ -41,9 +39,13 @@ app.post("/signin", signIn);
 app.post("/getChats/:id", getChats);
 app.post("/createChat", createChat);
 
-// app.get("*", (req, res) => {
-//     res.send("Not found")
-// })
+app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/vite-project/index.html"), (err) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+    })
+})
 
 
 io.on("connection", (socket) => {
