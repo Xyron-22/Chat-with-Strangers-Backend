@@ -30,13 +30,20 @@ const io = new Server(httpServer, {
 }
 });
 
+app.get("/", getUsers);
+app.get("/home", (req, res) => {
+    res.status(200)
+});
 
 app.post("/signup", signUp);
 app.post("/signin", signIn);
 
-app.get("/", getUsers);
 app.post("/getChats/:id", getChats);
 app.post("/createChat", createChat);
+
+app.get("*", (req, res) => {
+    res.send("Not found")
+})
 
 
 io.on("connection", (socket) => {
