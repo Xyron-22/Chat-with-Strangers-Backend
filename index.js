@@ -25,13 +25,15 @@ mongoose.connect(DATA_BASE_CONNECTION, {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        // origin: FRONT_END_BASE_URL,
+        origin: FRONT_END_BASE_URL,
         methods: ["GET", "POST"],
 }
 });
 
 app.get("/", getUsers);
-app.get("/home", getUsers);
+app.get("/home", (req, res) => {
+    res.status(200).send(<p>This is Home</p>)
+});
 
 app.post("/signup", signUp);
 app.post("/signin", signIn);
@@ -39,9 +41,9 @@ app.post("/signin", signIn);
 app.post("/getChats/:id", getChats);
 app.post("/createChat", createChat);
 
-app.get("*", (req, res) => {
-    res.send("Not found")
-})
+// app.get("*", (req, res) => {
+//     res.send("Not found")
+// })
 
 
 io.on("connection", (socket) => {
