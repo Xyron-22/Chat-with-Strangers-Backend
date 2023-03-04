@@ -25,7 +25,7 @@ mongoose.connect(DATA_BASE_CONNECTION, {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: FRONT_END_BASE_URL,
+        // origin: FRONT_END_BASE_URL,
         methods: ["GET", "POST"],
 }
 });
