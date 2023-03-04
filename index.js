@@ -31,9 +31,7 @@ const io = new Server(httpServer, {
 });
 
 app.get("/", getUsers);
-app.get("/home", (req, res) => {
-    res.status(200)
-});
+app.get("/home", getUsers);
 
 app.post("/signup", signUp);
 app.post("/signin", signIn);
