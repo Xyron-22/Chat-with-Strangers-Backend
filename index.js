@@ -43,14 +43,14 @@ io.on("connection", (socket) => {
     
     socket.on("send_message", (data) => {
         const sendData =  async () => {
-            const {room, author, message, time} = data;
+            const {room, author, message, time, date} = data;
             const chatFound = await chatModel.findOne({_id: room})
             
             try {
                 let chatArr;
                 
             if (chatFound) {
-                chatFound.chats.push({author, message, time})
+                chatFound.chats.push({author, message, time, date})
                 chatArr = chatFound.chats;
                 await chatModel.findOneAndUpdate({_id: room}, {chats: chatArr}, {new: true})
                 socket.to(room).emit("receive_message", chatArr)
